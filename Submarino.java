@@ -1,3 +1,6 @@
+package com.mycompany.batalhanaval;
+
+
 public class Submarino extends Navio{
 	public Submarino(int x, int y){
 		super(x, y);

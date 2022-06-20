@@ -1,3 +1,6 @@
+package com.mycompany.batalhanaval;
+
+
 public abstract class Navio{
 	protected boolean navioAfundado;
 	protected int comprimento;
