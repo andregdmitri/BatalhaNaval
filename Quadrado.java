@@ -9,16 +9,22 @@ package com.mycompany.batalhanaval;
  * @author rurineco
  */
 public class Quadrado {
-    private int x;
-    private int y;
     private StatusQ status;
 
-    public Quadrado(int x, int y) {
-        this.x = x;
-        this.y = y;
+
+    
+    public Quadrado() {
         status = StatusQ.VAZIO;
     }
     
+    public void Alvo(){
+        if (status == StatusQ.VAZIO){
+            status = StatusQ.ERRADO;
+        }
+        if (status == StatusQ.NAVIO){
+            status = StatusQ.AFUNDADO;
+        }
+    }
     
     
     public void ColocarNavio(){
@@ -27,11 +33,6 @@ public class Quadrado {
         }
     }
     
-    public void AfundarNavio(){
-        if (status == StatusQ.NAVIO){
-            status = StatusQ.AFUNDADO;
-        }
-    }
     
     public StatusQ getStatus(){ return status; }
 }
