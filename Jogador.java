@@ -7,6 +7,8 @@ public class Jogador{
         private boolean vivo; 
         private ArrayList<Navio> navios; 
         
+        
+      
 	
 
 
