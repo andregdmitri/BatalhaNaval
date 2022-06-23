@@ -4,7 +4,7 @@
  */
 package com.mycompany.batalhanaval;
 import java.util.Random;
-
+import java.util.*;
 /**
  *
  * @author rurineco
@@ -15,61 +15,71 @@ public class Bot extends IJogador {
     private Direcao direcao;
     private final Random rand = new Random();
     private int c;
+    private List<Direcao> possiveis;
         
     public Bot(Tabuleiro tab){
         super(tab);
         acertou = false;
         direcao = Direcao.VAZIO;
         c = 0;
+        possiveis = Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4));
     }
     
     
     @Override
-    public void atirar(int x, int y, IJogador Oponente){
+    public boolean atirar(int x, int y, IJogador Oponente){
         Tabuleiro oTab = Oponente.getTab();
         Direcao novaDirecao;
+        if(c >= 5 || possiveis.isEmpty()){
+            c = 0;
+            acertou = false;
+            direcao = Direcao.VAZIO;
+            possiveis = Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4));
+            return atirar(x, y, Oponente);
+        }
         if (!acertou){
             x = rand.nextInt(oTab.getX());
-            y = oTab.getY();
-            super.atirar(x, y, Oponente);
-            if (oTab.getCasa(x, y).getStatus() == StatusQ.AFUNDADO){
+            y = rand.nextInt(oTab.getY());
+            while(!oTab.podeAtirar(x, y)){
+                x = rand.nextInt(oTab.getX());
+                y = rand.nextInt(oTab.getY());
+            }
+            if(super.atirar(x, y, Oponente)){
                 acertou = true;
                 ultimotiro[0] = x;
                 ultimotiro[1] = y;
+                return true;
             }
+            return false;
         }
-        else{
-            if(direcao == Direcao.VAZIO){
-                novaDirecao = Direcao.values()[rand.nextInt(4)];
-                x = ultimotiro[0]+novaDirecao.getX();
-                y = novaDirecao.getY();
-                super.atirar(x, y, Oponente);
-                if(oTab.getCasa(x, y).getStatus() == StatusQ.AFUNDADO){
-                    direcao = novaDirecao;
-                    c++;
-                    ultimotiro[0] = x;
-                    ultimotiro[1] = y;
-                }
-                else{
-                    direcao = Direcao.VAZIO;
-                    
-                }
+        if(direcao == Direcao.VAZIO){
+            novaDirecao = possiveis.get(rand.nextInt(4));
+            x = ultimotiro[0]+novaDirecao.getX();
+            y = ultimotiro[0]+novaDirecao.getY();
+            if(super.atirar(x, y, Oponente)){
+                direcao = novaDirecao;
+                c++;
+                ultimotiro[0] = x;
+                ultimotiro[1] = y;
+                return true;
             }
             else{
-                if (c >= 5){
-                    c = 0;
-                    acertou = false;
-                   
-                }
-            
+                possiveis.remove(novaDirecao);
+                return false;
             }
         }
-        
-        
-    }
-  
-    
-    
-    
-    
+        x = ultimotiro[0] + direcao.getX();
+        y = ultimotiro[1] + direcao.getY();
+        if (super.atirar(x, y, Oponente)){
+            c++;
+            ultimotiro[0] = x;
+            ultimotiro[1] = y;
+            return true;
+        }
+        c = 0;
+        direcao = Direcao.VAZIO;
+        acertou = false;
+        possiveis = Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4));
+        return false;           
+    }  
 }
