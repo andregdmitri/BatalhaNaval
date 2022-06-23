@@ -19,6 +19,16 @@ public class Tabuleiro {
             }
         }
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+    
+    
     
     public boolean podeColocar(int x1, int x2, int y1, int y2){
         int i; int j;

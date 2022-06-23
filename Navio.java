@@ -16,17 +16,8 @@ public class Navio{
 		this.posicaoY = y;
                 this.comprimento = tipo.comprimento();
                 this.tipo = tipo;
-                switch(direcao){
-                    case NORTE:
-                        this.quadrados = tab.colocarNavio(posicaoX, posicaoX, posicaoY, posicaoY - comprimento);
-                    case SUL:
-                        this.quadrados = tab.colocarNavio(posicaoX, posicaoX, posicaoY, posicaoY + comprimento);
-                    case OESTE:
-                        this.quadrados = tab.colocarNavio(posicaoX, posicaoX, posicaoY, posicaoY - comprimento);
-                    case LESTE:
-                        this.quadrados = tab.colocarNavio(posicaoX, posicaoX, posicaoY, posicaoY + comprimento);
-                } 
-    } 
+                this.quadrados = tab.colocarNavio(posicaoX, posicaoX + direcao.getX(), posicaoY, posicaoY + direcao.getY());
+                }  
     
         public boolean VerificarAfundado (){
             if (this.navioAfundado){

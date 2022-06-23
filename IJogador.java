@@ -44,4 +44,8 @@ abstract public class IJogador {
     public void adicionarNavio(Navio navio){
         this.navios.add(navio);
     }
+    
+    public void atirar(int x, int y, IJogador oponente){
+        oponente.getTab().getCasa(x, y).Alvo();
+    }
 }

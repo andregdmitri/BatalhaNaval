@@ -27,7 +27,7 @@ public class Quadrado {
     }
     
     
-    public void ColocarNavio(){
+    public void Navio(){
         if (status == StatusQ.VAZIO){
             status = StatusQ.NAVIO;
         }
