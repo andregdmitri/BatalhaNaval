@@ -5,6 +5,12 @@ class Jogo {
     private static Jogador vez;
 
 
+/*
+    - Implementar alternação de vez
+    - Inicialização do jogador - colocar navios (Quantos navios? Quantos de cada?)
+    - Bot
+    - Tela de finalização
+    */
     
     
     
