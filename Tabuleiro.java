@@ -28,6 +28,12 @@ public class Tabuleiro {
         return y;
     }
     
+    public boolean podeAtirar(int x, int y){
+        if(oceano[x][y].getStatus() == StatusQ.NAVIO || oceano[x][y].getStatus() == StatusQ.VAZIO){
+            return true;
+        }
+        return false;
+    }
     
     
     public boolean podeColocar(int x1, int x2, int y1, int y2){

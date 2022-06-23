@@ -17,13 +17,16 @@ public class Quadrado {
         status = StatusQ.VAZIO;
     }
     
-    public void Alvo(){
+    public boolean Alvo(){
         if (status == StatusQ.VAZIO){
             status = StatusQ.ERRADO;
+            return false;
         }
         if (status == StatusQ.NAVIO){
             status = StatusQ.AFUNDADO;
+            return true;
         }
+        return false;
     }
     
     

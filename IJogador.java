@@ -45,7 +45,7 @@ abstract public class IJogador {
         this.navios.add(navio);
     }
     
-    public void atirar(int x, int y, IJogador oponente){
-        oponente.getTab().getCasa(x, y).Alvo();
+    public boolean atirar(int x, int y, IJogador oponente){
+        return oponente.getTab().getCasa(x, y).Alvo();
     }
 }
