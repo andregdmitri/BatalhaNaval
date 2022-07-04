@@ -55,7 +55,7 @@ public class Bot extends IJogador {
         if(direcao == Direcao.VAZIO){
             novaDirecao = possiveis.get(rand.nextInt(4));
             x = ultimotiro[0]+novaDirecao.getX();
-            y = ultimotiro[0]+novaDirecao.getY();
+            y = ultimotiro[1]+novaDirecao.getY();
             if(super.atirar(x, y, Oponente)){
                 direcao = novaDirecao;
                 c++;
