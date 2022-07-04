@@ -20,6 +20,7 @@ public class Bot extends IJogador {
     public Bot(Tabuleiro tab){
         super(tab);
         acertou = false;
+        nome = "Computador";
         direcao = Direcao.VAZIO;
         c = 0;
         possiveis = Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4));
@@ -27,15 +28,14 @@ public class Bot extends IJogador {
     
     
     @Override
-    public boolean atirar(int x, int y, IJogador Oponente){
-        Tabuleiro oTab = Oponente.getTab();
+    public boolean atirar(int x, int y, Tabuleiro oTab){
         Direcao novaDirecao;
         if(c >= 5 || possiveis.isEmpty()){
             c = 0;
             acertou = false;
             direcao = Direcao.VAZIO;
             possiveis = Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4));
-            return atirar(x, y, Oponente);
+            return atirar(x, y, oTab);
         }
         if (!acertou){
             x = rand.nextInt(oTab.getX());
@@ -44,7 +44,7 @@ public class Bot extends IJogador {
                 x = rand.nextInt(oTab.getX());
                 y = rand.nextInt(oTab.getY());
             }
-            if(super.atirar(x, y, Oponente)){
+            if(super.atirar(x, y, oTab)){
                 acertou = true;
                 ultimotiro[0] = x;
                 ultimotiro[1] = y;
@@ -56,7 +56,7 @@ public class Bot extends IJogador {
             novaDirecao = possiveis.get(rand.nextInt(4));
             x = ultimotiro[0]+novaDirecao.getX();
             y = ultimotiro[1]+novaDirecao.getY();
-            if(super.atirar(x, y, Oponente)){
+            if(super.atirar(x, y, oTab)){
                 direcao = novaDirecao;
                 c++;
                 ultimotiro[0] = x;
@@ -70,7 +70,7 @@ public class Bot extends IJogador {
         }
         x = ultimotiro[0] + direcao.getX();
         y = ultimotiro[1] + direcao.getY();
-        if (super.atirar(x, y, Oponente)){
+        if (super.atirar(x, y, oTab)){
             c++;
             ultimotiro[0] = x;
             ultimotiro[1] = y;

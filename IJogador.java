@@ -15,7 +15,7 @@ abstract public class IJogador {
     protected Tabuleiro tab;
     protected boolean vivo; 
     protected ArrayList<Navio> navios; 
-    
+    protected String nome;
     
     public IJogador(Tabuleiro tab){
         vivo = true;
@@ -56,8 +56,8 @@ abstract public class IJogador {
         return navios;
     }
     
-    public boolean atirar(int x, int y, IJogador oponente){
-        return oponente.getTab().getCasa(x, y).Alvo();
+    public static boolean atirar(int x, int y, Tabuleiro tab){
+        return tab.getCasa(x, y).Alvo();
     }
     
     public void posicionarNavio(int x, int y, Navio navio, Direcao direcao){

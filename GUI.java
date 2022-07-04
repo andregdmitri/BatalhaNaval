@@ -16,6 +16,8 @@ public class GUI implements ActionListener {
     JPanel panel;
     int i = 0;
     STATE state;
+    Jogo jogo;
+
     
     private enum STATE {
         MENU,
@@ -24,7 +26,6 @@ public class GUI implements ActionListener {
 
     public GUI() {
         frame = new JFrame();
-        
         JButton button_single = new JButton("Singleplayer");
         JButton button_multi = new JButton("Multiplayer");
         state = STATE.MENU;
@@ -38,6 +39,21 @@ public class GUI implements ActionListener {
         panel.add(button_single);
         panel.add(button_multi);
         
+        button_single.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               jogo = new Jogo(false);
+            }
+        }); 
+         button_single.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               jogo = new Jogo(true);
+            }
+        }); 
+        
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Batalha Naval");
@@ -46,6 +62,12 @@ public class GUI implements ActionListener {
     }
     
     
+    public int[] lerCoordenada(){
+        @Override 
+        void mouseClicked(MouseEvent e){
+        
+    }
+    }
     
     public static void main(String[] args) {
         new GUI();

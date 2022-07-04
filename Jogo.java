@@ -7,15 +7,23 @@ class Jogo {
     Tabuleiro tab1;
     Tabuleiro tab2;
     
-    
-    
-    public void jogoPrincipal(){
+    public Jogo(boolean multiplayer){
         tab1 = new Tabuleiro (10, 10);
         tab2 = new Tabuleiro (10, 10);
-        
         jogador = new Jogador (tab1);
-        oponente = new Bot(tab2);
+
+        if (multiplayer){
+            oponente = new Jogador(tab2);
+        }
+        else{
+            oponente = new Bot(tab2);
         
+        }
+    }
+    
+    public void jogoPrincipal(){
+
+                
         while(jogador.isVivo() && oponente.isVivo()){
             
         }  
