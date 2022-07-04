@@ -25,8 +25,8 @@ import java.awt.event.KeyEvent;
  * @author rurineco
  */
 public class Oceano extends JPanel {
-    private String[] letras = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
-    private String[] numeros = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+    private final String[] letras = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+    private final String[] numeros = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
     private GridBagLayout grid;
     private GridBagConstraints constraints;
     private Tabuleiro tab;
@@ -79,6 +79,17 @@ public class Oceano extends JPanel {
                 cor(i, j);
                 this.add(casas[i][j], constraints);
             }
+        }
+        
+        for (int i = 1; i < 11; i++) {
+           constraints.gridx = 0;
+           constraints.gridy = i;
+           JLabel gridNum = new JLabel(numeros[i - 1]);
+           this.add(gridNum, constraints);
+           constraints.gridx = i;
+           constraints.gridy = 0;
+           JLabel gridLet = new JLabel(letras[i - 1]);
+           this.add(gridLet, constraints);
         }
     }
     
