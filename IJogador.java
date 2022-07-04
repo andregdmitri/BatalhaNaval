@@ -16,10 +16,21 @@ abstract public class IJogador {
     protected boolean vivo; 
     protected ArrayList<Navio> navios; 
     
+    
     public IJogador(Tabuleiro tab){
         vivo = true;
         navios = new ArrayList();
         this.tab = tab;
+        this.navios.add(new Navio(TipoNavio.PORTAAVIOES));
+        this.navios.add(new Navio(TipoNavio.NAVIOTANQUE));
+        this.navios.add(new Navio(TipoNavio.NAVIOTANQUE));
+        this.navios.add(new Navio(TipoNavio.PORTAAVIOES));
+        this.navios.add(new Navio(TipoNavio.PORTAAVIOES));
+        this.navios.add(new Navio(TipoNavio.PORTAAVIOES));
+        this.navios.add(new Navio(TipoNavio.SUBMARINO));
+        this.navios.add(new Navio(TipoNavio.SUBMARINO));
+        this.navios.add(new Navio(TipoNavio.SUBMARINO));
+        this.navios.add(new Navio(TipoNavio.SUBMARINO));
     }
     
     
@@ -29,7 +40,7 @@ abstract public class IJogador {
         
     public boolean verificarvida(){
         for(Navio i : navios){
-            if(!i.VerificarAfundado()){
+            if(!i.verificarAfundado()){
                 return true;
             }
         }
@@ -41,11 +52,16 @@ abstract public class IJogador {
         return tab;
     }
     
-    public void adicionarNavio(Navio navio){
-        this.navios.add(navio);
+    public ArrayList<Navio> getNavios(){
+        return navios;
     }
     
     public boolean atirar(int x, int y, IJogador oponente){
         return oponente.getTab().getCasa(x, y).Alvo();
+    }
+    
+    public void posicionarNavio(int x, int y, Navio navio, Direcao direcao){
+        navio.criarNavio(x, y, direcao, tab);
+    
     }
 }

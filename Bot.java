@@ -82,4 +82,19 @@ public class Bot extends IJogador {
         possiveis = Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4));
         return false;           
     }  
+    
+    @Override
+    public void posicionarNavio(int x, int y, Navio navio, Direcao ndirecao){
+        ndirecao = (Direcao.values())[rand.nextInt(4)];
+        navio = navios.get(rand.nextInt(navios.size()));
+        while (!navio.verificarPosicionamento()){
+            navio = navios.get(rand.nextInt(navios.size()));
+        }
+        x = rand.nextInt(tab.getX());
+        y = rand.nextInt(tab.getY());
+        
+        while (!tab.podeColocar(x, y, ndirecao)){
+            super.posicionarNavio(x, y, navio, ndirecao);
+        }
+    }
 }

@@ -3,34 +3,40 @@ import java.util.ArrayList;
 
 public class Navio{
 	private boolean navioAfundado;
-	private int comprimento;
 	private int posicaoX;
 	private int posicaoY;
-        private TipoNavio tipo; 
+        private final TipoNavio tipo; 
         private ArrayList<Quadrado> quadrados;
        
-
-    public Navio(int x, int y, TipoNavio tipo, Direcao direcao, Tabuleiro tab){
+        
+    public Navio(TipoNavio tipo){
 		navioAfundado = false;
-		this.posicaoX = x;
-		this.posicaoY = y;
-                this.comprimento = tipo.comprimento();
                 this.tipo = tipo;
-                this.quadrados = tab.colocarNavio(posicaoX, posicaoX + direcao.getX(), posicaoY, posicaoY + direcao.getY());
-                }  
+                quadrados = new ArrayList();
+    }
     
-        public boolean VerificarAfundado (){
-            if (this.navioAfundado){
-                return true;
+    public boolean verificarPosicionamento(){
+        return !quadrados.isEmpty();
+    
+    }
+    
+    public void criarNavio(int x, int y, Direcao direcao, Tabuleiro tab){
+        this.posicaoX = x;
+        this.posicaoY = y;
+        this.quadrados = tab.colocarNavio(posicaoX, posicaoY, direcao, tipo.comprimento());
+    }
+    
+    public boolean verificarAfundado (){
+        if (this.navioAfundado){
+            return true;
+        }
+        for (Quadrado i : quadrados){
+            if (i.getStatus() == StatusQ.NAVIO){
+               return false;
             }
-            for (Quadrado i : quadrados){
-                if (i.getStatus() == StatusQ.NAVIO){
-                    return false;
-                }
-            }
+        }
             navioAfundado = true;
             return true;
         }
-
 }
     

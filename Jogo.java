@@ -2,32 +2,31 @@ package com.mycompany.batalhanaval;
 
 
 class Jogo {
-    private static Jogador vez;
-
-
-/*
-    - Implementar alternação de vez
-    - Inicialização do jogador - colocar navios (Quantos navios? Quantos de cada?)
-    - Bot
-    - Tela de finalização
-    */
+    IJogador jogador;
+    IJogador oponente;
+    Tabuleiro tab1;
+    Tabuleiro tab2;
     
     
     
-  public static void main(String[] args) {
-      int x; int y;
-      Tabuleiro T1 = new Tabuleiro(x, y);
-      Tabuleiro T2 = new Tabuleiro(x, y);
-      Jogador P1 = new Jogador();
-      Jogador P2 = new Jogador();
-      vez = P1;
-      
-      
-      
-      while(P1.isVivo() && P2.isVivo()){
-      
-      }
-      
-      
-  }
+    public void jogoPrincipal(){
+        tab1 = new Tabuleiro (10, 10);
+        tab2 = new Tabuleiro (10, 10);
+        
+        jogador = new Jogador (tab1);
+        oponente = new Bot(tab2);
+        
+        while(jogador.isVivo() && oponente.isVivo()){
+            
+        }  
+    }
+    
+    
+    public void colocarNavios(IJogador jogador){
+        
+    
+    }
+    public void atirar(){
+    
+    }
 }

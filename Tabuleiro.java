@@ -36,8 +36,10 @@ public class Tabuleiro {
     }
     
     
-    public boolean podeColocar(int x1, int x2, int y1, int y2){
+    public boolean podeColocar(int x1, int y1, Direcao direcao){
         int i; int j;
+        int y2 = y1 + direcao.getY();
+        int x2 = x1 + direcao.getX();
         if (x1 < 0 || x1 > this.x || x2 < 0 || x2 > this.x || 
             y1 < 0 || y1 > this.y || y2 < 0 || y2 > this.y){//Caso os valores colocados estejam fora do tabuleiro
             
@@ -54,14 +56,14 @@ public class Tabuleiro {
         return true;
     }
     
-    public ArrayList<Quadrado> colocarNavio(int x1, int x2, int y1, int y2){
+    public ArrayList<Quadrado> colocarNavio(int x, int y, Direcao direcao, int comprimento ){
         int i; int j;
         ArrayList<Quadrado> Navio;
         Navio = new ArrayList();
-        if (podeColocar(x1, x2, y1, y2)){
-           for (i = x1; i <= x2; i++){
-            for (j = y1; y <= y2; j++){
-                oceano[i][j].ColocarNavio();
+        if (podeColocar(x, y, direcao)){
+           for (i = x; i <= x + (direcao.getX() * comprimento); i++){
+            for (j = y; y <= y + (direcao.getY() * comprimento); j++){
+                oceano[i][j].Navio();
                 Navio.add(oceano[i][j]);
             }
            }
