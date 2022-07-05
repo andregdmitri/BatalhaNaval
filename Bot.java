@@ -13,37 +13,36 @@ public final class Bot extends IJogador {
     private int[] ultimotiro;
     private boolean acertou;
     private Direcao direcao;
-    private final Random rand = new Random();
     private int c;
-    private List<Direcao> possiveis;
+    private LinkedList<Direcao> possiveis = new LinkedList<Direcao>();
         
     public Bot(Tabuleiro tab){
         super(tab);
         acertou = false;
+        ultimotiro = new int[2];
         nome = "Computador";
         direcao = Direcao.VAZIO;
         c = 0;
-        possiveis = Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4));
+        possiveis.addAll(Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4)));
         posicionarNavios();
     }
     
-    
-    public boolean atirar(int x, int y, Tabuleiro oTab){
+    public boolean atirar(Tabuleiro oTab){
         Direcao novaDirecao;
+        int x;
+        int y;
         if(c >= 5 || possiveis.isEmpty()){
             c = 0;
             acertou = false;
             direcao = Direcao.VAZIO;
-            possiveis = Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4));
-            return atirar(x, y, oTab);
+            possiveis.addAll(Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4)));
+            return atirar(oTab);
         }
         if (!acertou){
-            x = rand.nextInt(oTab.getX());
-            y = rand.nextInt(oTab.getY());
-            while(!oTab.podeAtirar(x, y)){
+            do{            
                 x = rand.nextInt(oTab.getX());
-                y = rand.nextInt(oTab.getY());
-            }
+                y = rand.nextInt(oTab.getY());}
+            while(!oTab.podeAtirar(x, y));
             if(oTab.getCasa(x, y).Alvo()){
                 acertou = true;
                 ultimotiro[0] = x;
@@ -53,9 +52,12 @@ public final class Bot extends IJogador {
             return false;
         }
         if(direcao == Direcao.VAZIO){
-            novaDirecao = possiveis.get(rand.nextInt(4));
-            x = ultimotiro[0]+novaDirecao.getX();
-            y = ultimotiro[1]+novaDirecao.getY();
+            do{
+                novaDirecao = possiveis.get(rand.nextInt(possiveis.size()));
+                x = ultimotiro[0]+novaDirecao.getX();
+                y = ultimotiro[1]+novaDirecao.getY();
+            }while((x < 0 || x >= tab.getX() || y < 0 || y >= tab.getY()) && ((oTab.getCasa(x, y).getStatus() != StatusQ.ERRADO) || oTab.getCasa(x,y).getStatus() != StatusQ.AFUNDADO));
+
             if(oTab.getCasa(x, y).Alvo()){
                 direcao = novaDirecao;
                 c++;
@@ -79,28 +81,9 @@ public final class Bot extends IJogador {
         c = 0;
         direcao = Direcao.VAZIO;
         acertou = false;
-        possiveis = Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4));
+        possiveis.addAll(Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4)));
         return false;           
     }  
     
-    public void posicionarNavios(){
-        for(Navio i : navios){
-            posicionarNavio(i);
-        }
-    }
-    
-    public void posicionarNavio(Navio navio){
-        Direcao ndirecao;
-        int x;
-        int y;
-        
-        do{
-            ndirecao = (Direcao.values())[rand.nextInt(4)];
-            x = rand.nextInt(tab.getX());
-            y = rand.nextInt(tab.getY());
-        }
-        while(!tab.podeColocar(x, y, ndirecao, navio.getComprimento())); 
-        navio.criarNavio(x, y, ndirecao, tab);
 
-    }
 }

@@ -6,7 +6,6 @@ public class Navio{
 	private int posicaoX;
 	private int posicaoY;
         private final TipoNavio tipo; 
-        private int comprimento;
         private ArrayList<Quadrado> quadrados;
        
         
@@ -14,11 +13,10 @@ public class Navio{
 		navioAfundado = false;
                 this.tipo = tipo;
                 quadrados = new ArrayList();
-                this.comprimento = tipo.comprimento();
     }
 
     public int getComprimento() {
-        return comprimento;
+        return tipo.comprimento();
     }
     
     

@@ -24,7 +24,7 @@ import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeUnit;
 /**
  *
  * @author rurineco
@@ -37,6 +37,7 @@ public class Oceano extends JFrame {
     private JButton casas[][];
     private ActionListener ButtonListener;
     private boolean vez;
+    private boolean partida;
     private JLabel textovez;
 
     
@@ -50,6 +51,7 @@ public class Oceano extends JFrame {
         constraints = new GridBagConstraints();
         oceano.setLayout(grid);
         this.vez = vez;
+        this.partida = true;
         this.tab = tab;
         casas = new JButton[tab.getX()][tab.getY()];
         ButtonListener = (ActionEvent e) -> {
@@ -58,6 +60,7 @@ public class Oceano extends JFrame {
             tirodado(tab.getCasa(xCoord, yCoord).Alvo());
             cor(xCoord, yCoord);
             desativarbotoes();
+            partida = false;
         };
         for (int i = 0; i < tab.getX(); i++){
             for (int j = 0; j < tab.getY(); j++){
@@ -99,6 +102,18 @@ public class Oceano extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
+
+    public boolean isPartida() {
+        return partida;
+    }
+    
+    private void atualizar(){
+        for(int i = 0; i < tab.getX(); i++){
+            for(int j = 0; j < tab.getY(); j++){
+                cor(i, j);
+            }
+        }
+    }
     
     private void desativarbotoes(){
         for (JButton[] linha : casas) {
@@ -106,6 +121,24 @@ public class Oceano extends JFrame {
                 casa.setEnabled(false);
             }
         }
+    }
+    
+    public void tirodadooponente(boolean certo){
+        atualizar();
+        JLabel texto;
+        if (certo){
+            texto = new JLabel("O oponente acertou o tiro");
+        }
+        else{
+            texto = new JLabel("O oponente errou o tiro");
+        }
+        JFrame mostrartexto = new JFrame();
+        mostrartexto.add(texto);
+        mostrartexto.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        mostrartexto.setSize( 200, 100 ); 
+        mostrartexto.setResizable(false);
+        mostrartexto.setVisible( true );
+        
     }
     
     private void tirodado(boolean certo){

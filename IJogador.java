@@ -1,6 +1,7 @@
 package com.mycompany.batalhanaval;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -13,12 +14,11 @@ import java.util.ArrayList;
  */
 abstract public class IJogador {
     protected Tabuleiro tab;
-    protected boolean vivo; 
+    protected final Random rand = new Random();
     protected ArrayList<Navio> navios; 
     protected String nome;
     
     public IJogador(Tabuleiro tab){
-        vivo = true;
         navios = new ArrayList();
         this.tab = tab;
         this.navios.add(new Navio(TipoNavio.PORTAAVIOES));
@@ -35,17 +35,12 @@ abstract public class IJogador {
     
     
     public boolean isVivo() {
-        return vivo;
-    }
-        
-    public boolean verificarvida(){
         for(Navio i : navios){
             if(!i.verificarAfundado()){
                 return true;
             }
         }
-        vivo = false;
-        return false;
+        return false;    
     }
     
     public Tabuleiro getTab() {
@@ -55,7 +50,30 @@ abstract public class IJogador {
     public ArrayList<Navio> getNavios(){
         return navios;
     }
-    
-    
 
+    public String getNome() {
+        return nome;
+    }
+     
+    public void posicionarNavios(){
+        for(Navio i : navios){
+            posicionarNavio(i);
+        }
+    }
+    
+    public void posicionarNavio(Navio navio){
+        Direcao ndirecao;
+        int x;
+        int y;
+        
+        do{
+            ndirecao = (Direcao.values())[rand.nextInt(4)];
+            x = rand.nextInt(tab.getX());
+            y = rand.nextInt(tab.getY());
+        }
+        while(!tab.podeColocar(x, y, ndirecao, navio.getComprimento())); 
+        
+        navio.criarNavio(x, y, ndirecao, tab);
+    }
+    
 }

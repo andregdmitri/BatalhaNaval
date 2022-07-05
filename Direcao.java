@@ -1,15 +1,19 @@
 package com.mycompany.batalhanaval;
 
 public enum Direcao {
-    NORTE(-1), SUL(1), LESTE(1), OESTE(-1), VAZIO(0);
-    private final int d;
+    NORTE(0, -1), SUL(0, 1), LESTE(1, 0), OESTE(-1, 0), VAZIO(0, 0);
+    private final int x;
+    private final int y;
     
-    Direcao(int d){ this.d = d;}
+    Direcao(int x, int y){ this.x = y; this.y = y;}
 
-    public int getD() {
-        return d;
+    public int getX() {
+        return x;
     }
 
+    public int getY() {
+        return y;
+    }
     
     
 }
