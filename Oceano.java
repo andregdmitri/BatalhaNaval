@@ -21,7 +21,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import java.util.concurrent.TimeUnit
 /**
  *
  * @author rurineco
@@ -49,29 +52,12 @@ public class Oceano extends JFrame {
         this.vez = vez;
         this.tab = tab;
         casas = new JButton[tab.getX()][tab.getY()];
-        this.addKeyListener(new KeyListener(){
-            @Override
-            public void keyPressed(KeyEvent ke){
-                cheatmode();
-            }
-
-            @Override
-            public void keyTyped(KeyEvent ke) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent ke) {
-                cheatmode();
-            }
-        
-        
-        });
         ButtonListener = (ActionEvent e) -> {
-            int xCoord =   Character.getNumericValue(e.getActionCommand().charAt(0));
+            int xCoord = Character.getNumericValue(e.getActionCommand().charAt(0));
             int yCoord = Character.getNumericValue(e.getActionCommand().charAt(1)); 
-            System.out.println("Casa x = " + xCoord + " y = " + yCoord + " Status: " + tab.getCasaString(xCoord, yCoord));
             tirodado(tab.getCasa(xCoord, yCoord).Alvo());
             cor(xCoord, yCoord);
+            desativarbotoes();
         };
         for (int i = 0; i < tab.getX(); i++){
             for (int j = 0; j < tab.getY(); j++){
@@ -97,8 +83,10 @@ public class Oceano extends JFrame {
            JLabel gridLet = new JLabel(letras[i - 1]);
            oceano.add(gridLet, constraints);
         }
-        constraints.gridx = 1;
+        constraints.gridx = 5;
         constraints.gridy = tab.getY() + 1;
+        constraints.gridwidth = 3;
+        constraints.ipady = 18;
         if (vez){
             textovez = new JLabel("Sua vez!");
         }
@@ -112,13 +100,29 @@ public class Oceano extends JFrame {
         this.setVisible(true);
     }
     
+    private void desativarbotoes(){
+        for (JButton[] linha : casas) {
+            for (JButton casa : linha){
+                casa.setEnabled(false);
+            }
+        }
+    }
+    
     private void tirodado(boolean certo){
+        JLabel texto;
         if (certo){
-            JLabel texto = new JLabel("Você acertou o tiro! :D");
+            texto = new JLabel("Você acertou o tiro! :D");
         }
         else{
-            JLabel texto = new JLabel("Você errou o tiro... :(");
+            texto = new JLabel("Você errou o tiro... :(");
         }
+        JFrame mostrartexto = new JFrame();
+        mostrartexto.add(texto);
+        mostrartexto.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        mostrartexto.setSize( 200, 100 ); 
+        mostrartexto.setResizable(false);
+        mostrartexto.setVisible( true );
+        
     }
     
     private void cor(int i, int j){
@@ -130,18 +134,13 @@ public class Oceano extends JFrame {
             case NAVIO -> {
                 if (!vez){
                     casas[i][j].setBackground(Color.GRAY);
-                    break;
                 }
                 else{
                     casas[i][j].setBackground(Color.CYAN);
-                    break;
                 }
             }
         }
     
     }
     
-    private void cheatmode(){
-        vez = !vez;
-    }
 }

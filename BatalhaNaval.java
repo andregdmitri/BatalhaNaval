@@ -14,7 +14,7 @@ public class BatalhaNaval {
     public static void main(String[] args) {
         Tabuleiro tab1 = new Tabuleiro(10, 10);
         Bot bot = new Bot(tab1);
-        Oceano tela = new Oceano(true, tab1);
+        Oceano tela = new Oceano(false, tab1);
         for (Navio i : bot.getNavios()){
             System.out.println(i);
         }

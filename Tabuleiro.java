@@ -41,26 +41,37 @@ public class Tabuleiro {
     
     public boolean podeColocar(int x, int y, Direcao direcao, int comprimento){
         switch(direcao){
-            case NORTE: case SUL:
-                int y2 =  (direcao.getY() * comprimento) - 1;
-                if (y2 > this.y || y2 < 0){
+            case NORTE, SUL -> {
+                int y2 =  (direcao.getD() * comprimento) - 1;
+                if (y2 >= this.y || y2 < 0){
                     return false;
                 }
-                for(int j = y; j != y2; j=j+direcao.getY()){
-                    if (oceano[x][j].getStatus() != StatusQ.VAZIO){
+                for(int j = y; j != y2; j=j+direcao.getD()){
+                    try{
+                        if (oceano[x][j].getStatus() != StatusQ.VAZIO){
+                            return false;
+                        }
+                    } catch(ArrayIndexOutOfBoundsException e){
                         return false;
                     }
+                    
                 }
-            case OESTE: case LESTE:
-                int x2 = (direcao.getX() * comprimento) - 1;
-                for(int i = x; i != x2; i=i+direcao.getX()){
-                    if (x2 > this.x || x2 < 0 ){
-                        return false;
-                    }
-                    if (oceano[i][y].getStatus() != StatusQ.VAZIO){
-                        return false;
-                    }
+            }
+ case OESTE, LESTE -> {
+     int x2 = (direcao.getD() * comprimento) - 1;
+     if (x2 >= this.x || x2 < 0 ){
+         return false;
+     }
+     for(int i = x; i != x2; i=i+direcao.getD()){
+         try{
+             if (oceano[i][y].getStatus() != StatusQ.VAZIO){
+                 return false;
              }
+         }catch(ArrayIndexOutOfBoundsException e){
+             return false;
+         }
+     }
+            }
         }
         return true;
     }
@@ -71,19 +82,21 @@ public class Tabuleiro {
         Navio = new ArrayList();
         if (podeColocar(x, y, direcao, comprimento)){
             switch(direcao){
-                case NORTE: case SUL:
-                    int y2 =  (direcao.getY() * comprimento) - 1;
-                    for(int j = y; j != y2; j=j+direcao.getY()){
+                case NORTE, SUL->{
+                    int y2 =  (direcao.getD() * comprimento) - 1;
+                    for(int j = y; j != y2; j=j+direcao.getD()){
                         oceano[x][j].navio();
                         Navio.add(oceano[x][j]);
                     }
-                case OESTE: case LESTE:
-                    int x2 = (direcao.getX() * comprimento) - 1;
-                    for(int i = x; i != x2; i=i+direcao.getX()){
+                }
+                case OESTE, LESTE->{
+                    int x2 = (direcao.getD() * comprimento) - 1;
+                    for(int i = x; i != x2; i=i+direcao.getD()){
                         oceano[i][y].navio();
                         Navio.add(oceano[i][y]);
                     }
                 }
+            }
         }
         return Navio;
     } 

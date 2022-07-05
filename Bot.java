@@ -100,7 +100,7 @@ public final class Bot extends IJogador {
             y = rand.nextInt(tab.getY());
         }
         while(!tab.podeColocar(x, y, ndirecao, navio.getComprimento())); 
-        navio.criarNavio(x, y, direcao, tab);
+        navio.criarNavio(x, y, ndirecao, tab);
 
     }
 }
