@@ -56,12 +56,6 @@ abstract public class IJogador {
         return navios;
     }
     
-    public static boolean atirar(int x, int y, Tabuleiro tab){
-        return tab.getCasa(x, y).Alvo();
-    }
     
-    public void posicionarNavio(int x, int y, Navio navio, Direcao direcao){
-        navio.criarNavio(x, y, direcao, tab);
-    
-    }
+
 }

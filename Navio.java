@@ -6,6 +6,7 @@ public class Navio{
 	private int posicaoX;
 	private int posicaoY;
         private final TipoNavio tipo; 
+        private int comprimento;
         private ArrayList<Quadrado> quadrados;
        
         
@@ -13,12 +14,26 @@ public class Navio{
 		navioAfundado = false;
                 this.tipo = tipo;
                 quadrados = new ArrayList();
+                this.comprimento = tipo.comprimento();
     }
+
+    public int getComprimento() {
+        return comprimento;
+    }
+    
+    
     
     public boolean verificarPosicionamento(){
         return !quadrados.isEmpty();
     
     }
+
+    @Override
+    public String toString() {
+        return "Navio{" + "tipo = " + tipo + ", começa em x = " + posicaoX + " e y em = " + posicaoY;
+    }
+    
+    
     
     public void criarNavio(int x, int y, Direcao direcao, Tabuleiro tab){
         this.posicaoX = x;

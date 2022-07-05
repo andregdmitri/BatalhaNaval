@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author rurineco
  */
-public class Bot extends IJogador {
+public final class Bot extends IJogador {
     private int[] ultimotiro;
     private boolean acertou;
     private Direcao direcao;
@@ -24,10 +24,10 @@ public class Bot extends IJogador {
         direcao = Direcao.VAZIO;
         c = 0;
         possiveis = Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4));
+        posicionarNavios();
     }
     
     
-    @Override
     public boolean atirar(int x, int y, Tabuleiro oTab){
         Direcao novaDirecao;
         if(c >= 5 || possiveis.isEmpty()){
@@ -44,7 +44,7 @@ public class Bot extends IJogador {
                 x = rand.nextInt(oTab.getX());
                 y = rand.nextInt(oTab.getY());
             }
-            if(super.atirar(x, y, oTab)){
+            if(oTab.getCasa(x, y).Alvo()){
                 acertou = true;
                 ultimotiro[0] = x;
                 ultimotiro[1] = y;
@@ -56,7 +56,7 @@ public class Bot extends IJogador {
             novaDirecao = possiveis.get(rand.nextInt(4));
             x = ultimotiro[0]+novaDirecao.getX();
             y = ultimotiro[1]+novaDirecao.getY();
-            if(super.atirar(x, y, oTab)){
+            if(oTab.getCasa(x, y).Alvo()){
                 direcao = novaDirecao;
                 c++;
                 ultimotiro[0] = x;
@@ -70,7 +70,7 @@ public class Bot extends IJogador {
         }
         x = ultimotiro[0] + direcao.getX();
         y = ultimotiro[1] + direcao.getY();
-        if (super.atirar(x, y, oTab)){
+        if (oTab.getCasa(x, y).Alvo()){
             c++;
             ultimotiro[0] = x;
             ultimotiro[1] = y;
@@ -83,18 +83,24 @@ public class Bot extends IJogador {
         return false;           
     }  
     
-    @Override
-    public void posicionarNavio(int x, int y, Navio navio, Direcao ndirecao){
-        ndirecao = (Direcao.values())[rand.nextInt(4)];
-        navio = navios.get(rand.nextInt(navios.size()));
-        while (!navio.verificarPosicionamento()){
-            navio = navios.get(rand.nextInt(navios.size()));
+    public void posicionarNavios(){
+        for(Navio i : navios){
+            posicionarNavio(i);
         }
-        x = rand.nextInt(tab.getX());
-        y = rand.nextInt(tab.getY());
+    }
+    
+    public void posicionarNavio(Navio navio){
+        Direcao ndirecao;
+        int x;
+        int y;
         
-        while (!tab.podeColocar(x, y, ndirecao)){
-            super.posicionarNavio(x, y, navio, ndirecao);
+        do{
+            ndirecao = (Direcao.values())[rand.nextInt(4)];
+            x = rand.nextInt(tab.getX());
+            y = rand.nextInt(tab.getY());
         }
+        while(!tab.podeColocar(x, y, ndirecao, navio.getComprimento())); 
+        navio.criarNavio(x, y, direcao, tab);
+
     }
 }

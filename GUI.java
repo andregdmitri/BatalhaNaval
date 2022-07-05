@@ -62,13 +62,6 @@ public class GUI implements ActionListener {
     }
     
     
-    public int[] lerCoordenada(){
-        @Override 
-        void mouseClicked(MouseEvent e){
-        
-    }
-    }
-    
     public static void main(String[] args) {
         new GUI();
     }

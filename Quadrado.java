@@ -30,10 +30,8 @@ public class Quadrado {
     }
     
     
-    public void Navio(){
-        if (status == StatusQ.VAZIO){
-            status = StatusQ.NAVIO;
-        }
+    public void navio(){
+        status = StatusQ.NAVIO;
     }
     
     
