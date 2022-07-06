@@ -1,3 +1,7 @@
+/* 
+Autores: Rui Emanuel Lima Viera - NUSP: 11810182
+         André Guarnier de Mitri - NUSP: 11395579
+*/
 package com.mycompany.batalhanaval;
 import java.util.ArrayList;
 
@@ -50,6 +54,11 @@ public class Navio{
 
     public TipoNavio getTipo() {
         return tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "Navio{" + "posicaoX= " + posicaoX + ", posicaoY= " + posicaoY + ", tipo= " + tipo + '}';
     }
     
     

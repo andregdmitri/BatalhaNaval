@@ -1,7 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+/* 
+Autores: Rui Emanuel Lima Viera - NUSP: 11810182
+         André Guarnier de Mitri - NUSP: 11395579
+*/
 package com.mycompany.batalhanaval;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,10 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
-/**
- *
- * @author rurineco
- */
 
 // O objetivo desse objeto é fornecer um template para as duas interfaces principais do jogo - A tela de colocação dos navios do jogador, e o tabuleiro da partida. Ele representa o tabuleiro do jogo.
    
@@ -72,6 +68,8 @@ public abstract class Oceano extends JFrame {
            JLabel gridLet = new JLabel(letras[i - 1]);
            oceano.add(gridLet, constraints);
         }
+        oceano.setFocusable(true);
+        oceano.requestFocusInWindow();
 
         this.add(oceano);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

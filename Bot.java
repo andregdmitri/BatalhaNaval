@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+/* 
+Autores: Rui Emanuel Lima Viera - NUSP: 11810182
+         André Guarnier de Mitri - NUSP: 11395579
+*/
 package com.mycompany.batalhanaval;
 import java.util.Random;
 import java.util.*;
-/**
- *
- * @author rurineco
- */
+
 
 //Essa classe é responsável pela IA do bot. Como o posicionamento aleatório dos navios já está contido na sua classe mãe, seu único método único é determinar como o tiro será feito.
 public final class Bot extends IJogador {

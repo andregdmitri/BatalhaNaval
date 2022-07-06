@@ -1,3 +1,7 @@
+/* 
+Autores: Rui Emanuel Lima Viera - NUSP: 11810182
+         André Guarnier de Mitri - NUSP: 11395579
+*/
 package com.mycompany.batalhanaval;
 
 import javax.swing.JFrame;
@@ -20,13 +24,14 @@ final class Jogo {
         //Cria o objeto jogador do usuário
         String nomeP1 = JOptionPane.showInputDialog("Por favor insira seu nome");
         jogador = new Jogador (tab1, nomeP1);
-        jogador.posicionarNavios();
+        //jogador.posicionarNavios();
         
-        /*        for (Navio n : jogador.getNavios()){
-        colocarNavios colocarnavios = new colocarNavios(tab1, n);
-        while(colocarnavios.estaEmUso());
-        colocarnavios.dispose();
-        }*/
+        for (Navio n : jogador.getNavios()){
+            colocarNavios colocarnavios = new colocarNavios(tab1, n);
+            while(colocarnavios.estaEmUso());
+            colocarnavios.dispose();
+            System.out.println(n);
+        }
         
         Object[] opcoes = {"Singleplayer", "Multiplayer"};
         Object reply = JOptionPane.showInputDialog(null, "Escolha um modo de jogo", "Menu", JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);

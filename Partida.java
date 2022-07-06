@@ -1,7 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+/* 
+Autores: Rui Emanuel Lima Viera - NUSP: 11810182
+         André Guarnier de Mitri - NUSP: 11395579
+*/
 package com.mycompany.batalhanaval;
 
 import java.awt.Color;
@@ -9,11 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
-/**
- *
- * @author rurineco
- */
 
 //Essa classe é responsável pela interface que é exibida para o usuário durante uma rodada. 
 public class Partida extends Oceano{

@@ -1,17 +1,12 @@
+/* 
+Autores: Rui Emanuel Lima Viera - NUSP: 11810182
+         André Guarnier de Mitri - NUSP: 11395579
+*/
 package com.mycompany.batalhanaval;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author rurineco
- */
 
 //Essa classe é um template no qual serão baseados tanto o jogador dos usuários quando o Bot.
 abstract public class IJogador {

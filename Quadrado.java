@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+/* 
+Autores: Rui Emanuel Lima Viera - NUSP: 11810182
+         André Guarnier de Mitri - NUSP: 11395579
+*/
 package com.mycompany.batalhanaval;
 
-/**
- *
- * @author rurineco
- */
 
 //O objetivo desse objeto é compor o tabuleiro. Seu único atributo é o status, feito do enum StatusQ. Ele informa sobre o status daquela casa específica do tabuleiro. 
 public class Quadrado {
