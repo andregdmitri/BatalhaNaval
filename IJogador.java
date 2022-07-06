@@ -24,13 +24,14 @@ abstract public class IJogador {
         this.navios.add(new Navio(TipoNavio.PORTAAVIOES));
         this.navios.add(new Navio(TipoNavio.NAVIOTANQUE));
         this.navios.add(new Navio(TipoNavio.NAVIOTANQUE));
-        this.navios.add(new Navio(TipoNavio.PORTAAVIOES));
-        this.navios.add(new Navio(TipoNavio.PORTAAVIOES));
-        this.navios.add(new Navio(TipoNavio.PORTAAVIOES));
+        this.navios.add(new Navio(TipoNavio.CONTRATORPEDOS));
+        this.navios.add(new Navio(TipoNavio.CONTRATORPEDOS));
+        this.navios.add(new Navio(TipoNavio.CONTRATORPEDOS));
         this.navios.add(new Navio(TipoNavio.SUBMARINO));
         this.navios.add(new Navio(TipoNavio.SUBMARINO));
         this.navios.add(new Navio(TipoNavio.SUBMARINO));
         this.navios.add(new Navio(TipoNavio.SUBMARINO));
+
     }
     
     

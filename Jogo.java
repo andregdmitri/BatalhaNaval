@@ -20,21 +20,27 @@ final class Jogo {
         jogador = new Jogador (tab1, nomeP1);
         jogador.posicionarNavios();
         
+        /*        for (Navio n : jogador.getNavios()){
+        colocarNavios colocarnavios = new colocarNavios(tab1, n);
+        while(colocarnavios.estaEmUso());
+        colocarnavios.dispose();
+        }*/
         Object[] opcoes = {"Singleplayer", "Multiplayer"};
+       
         Object reply = JOptionPane.showInputDialog(null, "Escolha um modo de jogo", "Menu", JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
 
         if (reply.equals("Singleplayer")){
             ai = new Bot (tab2);
             while(jogador.isVivo() && ai.isVivo()){
-                Oceano jTab = new Oceano(true, tab2);
-                while(jTab.isPartida()); 
+                Partida oTab = new Partida(true, tab2);
+                while(oTab.estaEmUso()); 
                 esperar(5000);
-                jTab.dispose();
-                Oceano oTab = new Oceano(false, tab1);
-                esperar(5000);
-                oTab.tirodadooponente(ai.atirar(tab1));
-                esperar(3000);
                 oTab.dispose();
+                Partida jTab = new Partida(false, tab1);
+                esperar(5000);
+                jTab.tirodadooponente(ai.atirar(tab1));
+                esperar(3000);
+                jTab.dispose();
             }
             vitoria(jogador, ai);        
         }
@@ -42,11 +48,11 @@ final class Jogo {
     
     public void esperar(int ms){
         try{
-        Thread.sleep(ms);
-    }
-    catch(InterruptedException ex){
-        Thread.currentThread().interrupt();
-    }
+            Thread.sleep(ms);
+        }
+        catch(InterruptedException ex){
+            Thread.currentThread().interrupt();
+        }
     
     }
     
@@ -64,12 +70,6 @@ final class Jogo {
         mostrartexto.setSize( 200, 100 ); 
         mostrartexto.setResizable(false);
         mostrartexto.setVisible( true );
-    }
-    
-    
-    public void colocarNavios(IJogador jogador){
-        
-    
     }
     
 }

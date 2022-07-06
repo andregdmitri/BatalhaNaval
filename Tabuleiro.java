@@ -42,34 +42,25 @@ public class Tabuleiro {
     public boolean podeColocar(int x, int y, Direcao direcao, int comprimento){
         switch(direcao){
             case NORTE, SUL -> {
-                int y2 =  (direcao.getY() * comprimento) - 1;
+                int y2 =  y + (direcao.getY() * comprimento);
                 if (y2 >= this.y || y2 < 0){
                     return false;
                 }
                 for(int j = y; j != y2; j=j+direcao.getY()){
-                    try{
-                        if (oceano[x][j].getStatus() != StatusQ.VAZIO){
-                            return false;
-                        }
-                    } catch(ArrayIndexOutOfBoundsException e){
-                        return false;
-                    }
-                    
+                    if (!isVazio(x, j)){
+                            return false;                    
                 }
             }
+        }
             case OESTE, LESTE -> {
-                int x2 = (direcao.getX() * comprimento) - 1;
+                int x2 = x + (direcao.getX() * comprimento);
                 if (x2 >= this.x || x2 < 0 ){
                     return false;
                 }
                 for(int i = x; i != x2; i=i+direcao.getX()){
-                    try{
-                        if (oceano[i][y].getStatus() != StatusQ.VAZIO){
+                        if (!isVazio(i, y)){
                             return false;
                         }
-                    }catch(ArrayIndexOutOfBoundsException e){
-                        return false;
-                    }
                 }
             }
         }
@@ -77,27 +68,29 @@ public class Tabuleiro {
     }
     
     
-    public ArrayList<Quadrado> colocarNavio(int x, int y, Direcao direcao, int comprimento ){
+    public boolean isVazio(int x, int y){
+        return oceano[x][y].getStatus() == StatusQ.VAZIO;
+    }
+    
+    public ArrayList<Quadrado> colocarNavio(int x, int y, Direcao direcao, int comprimento){
         ArrayList<Quadrado> Navio;
         Navio = new ArrayList();
-        if (podeColocar(x, y, direcao, comprimento)){
             switch(direcao){
                 case NORTE, SUL->{
-                    int y2 =  (direcao.getY() * comprimento) - 1;
+                    int y2 = y + (direcao.getY() * comprimento);
                     for(int j = y; j != y2; j=j+direcao.getY()){
                         oceano[x][j].navio();
                         Navio.add(oceano[x][j]);
                     }
                 }
                 case OESTE, LESTE->{
-                    int x2 = (direcao.getX() * comprimento) - 1;
+                    int x2 = x + (direcao.getX() * comprimento);
                     for(int i = x; i != x2; i=i+direcao.getX()){
                         oceano[i][y].navio();
                         Navio.add(oceano[i][y]);
                     }
                 }
             }
-        }
         return Navio;
     } 
      

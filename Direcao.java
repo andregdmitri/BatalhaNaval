@@ -5,7 +5,7 @@ public enum Direcao {
     private final int x;
     private final int y;
     
-    Direcao(int x, int y){ this.x = y; this.y = y;}
+    Direcao(int x, int y){ this.x = x; this.y = y;}
 
     public int getX() {
         return x;

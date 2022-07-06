@@ -14,7 +14,7 @@ public final class Bot extends IJogador {
     private boolean acertou;
     private Direcao direcao;
     private int c;
-    private LinkedList<Direcao> possiveis = new LinkedList<Direcao>();
+    private LinkedList<Direcao> possiveis = new LinkedList<>();
         
     public Bot(Tabuleiro tab){
         super(tab);

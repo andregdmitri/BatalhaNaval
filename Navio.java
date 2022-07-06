@@ -51,5 +51,11 @@ public class Navio{
             navioAfundado = true;
             return true;
         }
+
+    public TipoNavio getTipo() {
+        return tipo;
+    }
+    
+    
 }
     
