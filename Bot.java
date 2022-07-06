@@ -78,6 +78,14 @@ public final class Bot extends IJogador {
         //Para chegar até aqui,  já determinamos uma direço certeira. Apenas continuamos.
         x = ultimotiro[0] + direcao.getX();
         y = ultimotiro[1] + direcao.getY();
+        //Porém, existe a chance de acabar ultrapassando os limites do vetor após continuar. primeiro, temos que verificar isso.
+        if(x < 0 || x >= tab.getX() || y < 0 || y >= tab.getY()){ //Se já tiver chegado no limite, vamos apenas resetar tudo e tentar novamente.
+            c = 0;
+            acertou = false;
+            direcao = Direcao.VAZIO;
+            possiveis.addAll(Arrays.asList(Arrays.copyOfRange(Direcao.values(), 0, 4)));
+            return atirar(oTab);
+        }
         if (oTab.getCasa(x, y).Alvo()){
             c++;
             ultimotiro[0] = x;
