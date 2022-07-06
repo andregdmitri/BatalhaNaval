@@ -101,7 +101,7 @@ public abstract class Oceano extends JFrame {
             case VAZIO -> casas[i][j].setBackground(Color.CYAN);
             case ERRADO -> casas[i][j].setBackground(Color.RED);
             case AFUNDADO -> casas[i][j].setBackground(Color.BLACK);
-            case NAVIO -> casas[i][j].setBackground(Color.CYAN);
+            case NAVIO -> casas[i][j].setBackground(Color.GRAY);
         }
     
     }

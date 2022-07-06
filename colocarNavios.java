@@ -108,8 +108,9 @@ public class colocarNavios extends Oceano{
             navio.criarNavio(xCoord, yCoord, direcao, tab);
             emuso=false;
         }
-        else{
+        else{   
             JOptionPane.showMessageDialog(null, "Você não pode colocar esse navio", "Alerta", JOptionPane.ERROR_MESSAGE);
         }
+        atualizar();
     }
 }
