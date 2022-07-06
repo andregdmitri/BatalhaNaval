@@ -16,8 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JFrame;
 
 // O objetivo desse objeto é fornecer um template para as duas interfaces principais do jogo - A tela de colocação dos navios do jogador, e o tabuleiro da partida. Ele representa o tabuleiro do jogo.
-   
-
 public abstract class Oceano extends JFrame {
     private final String[] letras = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     private GridBagLayout grid;

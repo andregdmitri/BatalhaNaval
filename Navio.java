@@ -5,7 +5,6 @@ Autores: Rui Emanuel Lima Viera - NUSP: 11810182
 package com.mycompany.batalhanaval;
 import java.util.ArrayList;
 
-
 //Essa classe é responsável por armazenar e gerenciar os navios de cada jogador. 
 public class Navio{
 	private boolean navioAfundado;

@@ -26,11 +26,10 @@ final class Jogo {
         jogador = new Jogador (tab1, nomeP1);
         //jogador.posicionarNavios();
         
-        for (Navio n : jogador.getNavios()){
+        for (Navio n : jogador.getNavios()) {
             colocarNavios colocarnavios = new colocarNavios(tab1, n);
             while(colocarnavios.estaEmUso());
             colocarnavios.dispose();
-            System.out.println(n);
         }
         
         Object[] opcoes = {"Singleplayer", "Multiplayer"};
