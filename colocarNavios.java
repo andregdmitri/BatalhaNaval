@@ -19,6 +19,8 @@ import java.awt.Color;
  *
  * @author rurineco
  */
+
+//Essa classe é responsável pela tela na qual o usuário posiciona os seus navios no tabuleiro. 
 public class colocarNavios extends Oceano{
     private Direcao direcao;
     private ActionListener ButtonListener;

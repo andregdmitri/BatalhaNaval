@@ -18,6 +18,10 @@ import javax.swing.JFrame;
  *
  * @author rurineco
  */
+
+// O objetivo desse objeto é fornecer um template para as duas interfaces principais do jogo - A tela de colocação dos navios do jogador, e o tabuleiro da partida. Ele representa o tabuleiro do jogo.
+   
+
 public abstract class Oceano extends JFrame {
     private final String[] letras = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
     private GridBagLayout grid;
@@ -29,17 +33,21 @@ public abstract class Oceano extends JFrame {
 
     
     public Oceano(Tabuleiro tab){
+        //Inicializa os detalhes da interface
         this.setSize(680, 750);
         this.setLayout(new BorderLayout());
         this.setResizable(false);
         oceano.setPreferredSize(new Dimension(650, 750));
         grid = new GridBagLayout();
-        this.emuso = true;
-        constraints = new GridBagConstraints();
         oceano.setLayout(grid);
+        constraints = new GridBagConstraints();
+
+        //Inicializa os atributos do objeto
+        this.emuso = true;
         this.tab = tab;
         casas = new JButton[tab.getX()][tab.getY()];
 
+        //Preenche o tabuleiro com botões
         for (int i = 0; i < tab.getX(); i++){
             for (int j = 0; j < tab.getY(); j++){
                 constraints.gridx = i + 1;
@@ -52,6 +60,8 @@ public abstract class Oceano extends JFrame {
                 oceano.add(casas[i][j], constraints);
             }
         }
+        
+        //Coloca as letras e os números ao redor do tabuleiro, para ter um guia
         for (int i = 1; i < tab.getY() + 1; i++) {
            constraints.gridx = 0;
            constraints.gridy = i;
@@ -68,7 +78,7 @@ public abstract class Oceano extends JFrame {
         this.setVisible(true);
     }
 
-    
+    //Chama novamente a função cor para ficar a par com as mudanças no estado do quadrado
     protected void atualizar(){
         for(int i = 0; i < tab.getX(); i++){
             for(int j = 0; j < tab.getY(); j++){
@@ -77,6 +87,7 @@ public abstract class Oceano extends JFrame {
         }
     }
     
+    //Ativa ou desativa os botões, dependendo do escolhido
     protected void ativarbotoes(boolean opcao){
         for (JButton[] linha : casas) {
             for (JButton casa : linha){
@@ -85,6 +96,7 @@ public abstract class Oceano extends JFrame {
         }
     }
     
+    //Determina a cor do botão determinado, a depender do estado do seu respectivo quadrado
     protected void cor(int i, int j){
         StatusQ status = tab.getCasa(i, j).getStatus();
         switch (status) {

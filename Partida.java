@@ -14,8 +14,10 @@ import javax.swing.JLabel;
  *
  * @author rurineco
  */
+
+//Essa classe é responsável pela interface que é exibida para o usuário durante uma rodada. 
 public class Partida extends Oceano{
-    private boolean vez;
+    private boolean vez; 
     private JLabel textovez;
     private JFrame mostrartexto = new JFrame();
     private ActionListener ButtonListener;
@@ -25,22 +27,28 @@ public class Partida extends Oceano{
         super(tab);
         this.vez = vez;
         this.emuso = true;
-        ativarbotoes(vez);
-        atualizar();
+        ativarbotoes(vez); //Caso seja a vez do jogador, os botões serão clicáveis. Caso não seja, e ele esteja apenas assistindo, ele não poderá interagir com o tabuleiro.
+        atualizar(); //Atualizamos o tabuleiro para que seja aplicado o override da função cor
+        
+    
         ButtonListener = (ActionEvent e) -> {
             int xCoord = Character.getNumericValue(e.getActionCommand().charAt(0));
             int yCoord = Character.getNumericValue(e.getActionCommand().charAt(1)); 
-            if (tab.getCasa(xCoord, yCoord).getStatus() != StatusQ.AFUNDADO && tab.getCasa(xCoord, yCoord).getStatus() != StatusQ.ERRADO){
-                tirodado(tab.getCasa(xCoord, yCoord).Alvo());
-                cor(xCoord, yCoord);
-                ativarbotoes(false);
+            //Armazena as coordenadas do botão
+            if (tab.podeAtirar(xCoord, yCoord)){ 
+                //Caso o botão seja passível de ser atirado, o tiro é feito.
+                tirodado(tab.getCasa(xCoord, yCoord).Alvo()); 
+                cor(xCoord, yCoord); 
+                ativarbotoes(false); //Como já acabou a rodada do jogador, os botões são desativados e o emuso é mudado para falso
                 emuso = false;
             }
         };
-        for (int i = 0; i < tab.getX(); i++){
+        for (int i = 0; i < tab.getX(); i++){ //Acrescenta o listener dos botões para todos os botões
             for (int j = 0; j < tab.getY(); j++){
                     casas[i][j].addActionListener(ButtonListener); 
         } }
+        
+        //Acrescenta texto abaixo do tabuleiro para informar ao jogador se é a vez dele ou do oponente
         constraints.gridx = 5;
         constraints.gridy = tab.getY() + 1;
         constraints.gridwidth = 3;
@@ -56,8 +64,8 @@ public class Partida extends Oceano{
     
 
     
-    public void tirodadooponente(boolean certo){
-        atualizar();
+    public void tirodadooponente(boolean certo){ //Chamado quando o oponente está jogando.
+        atualizar(); //Atualiza todos os quadrados, para que seja exibido onde o tiro foi dado.
         JLabel texto;
         if (certo){
             texto = new JLabel("O oponente acertou o tiro");
@@ -77,18 +85,15 @@ public class Partida extends Oceano{
     protected void cor(int i, int j){
         super.cor(i,j);
         StatusQ status = tab.getCasa(i, j).getStatus();
-        if(status == StatusQ.NAVIO){
-            if(!vez){
-                casas[i][j].setBackground(Color.GRAY);
-            }
-            else{
+        if(status == StatusQ.NAVIO){ //Caso seja a vez do jogador de jogar, queremos que os quadrados do navio do inimigo fiquem da mesma cor que o oceano. Caso não seja, os navios podem ter a cor normal.
+            if(vez){
                 casas[i][j].setBackground(Color.CYAN);
             }
         }
     
     }
     
-    private void tirodado(boolean certo){
+    private void tirodado(boolean certo){ //Abre uma janela para informar ao jogador se ele acertou ou não o tiro.
         JLabel texto;
         if (certo){
             texto = new JLabel("Você acertou o tiro! :D");
@@ -104,7 +109,7 @@ public class Partida extends Oceano{
     }
     
     @Override
-    public void dispose(){
+    public void dispose(){ //Fecha também a tela sobre o tiro quando fechar o tabuleiro
         mostrartexto.dispose();
         super.dispose();
     }

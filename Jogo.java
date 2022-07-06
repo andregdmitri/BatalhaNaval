@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+//Classe principal, onde o jogo será rodado.
 final class Jogo {
     IJogador jogador;
     IJogador oponente;
@@ -12,10 +13,11 @@ final class Jogo {
     Tabuleiro tab2;
     
     public Jogo(){
+        //Cria tabuleiro para os dois jogadores
         tab1 = new Tabuleiro (10, 10);
         tab2 = new Tabuleiro (10, 10);
         
-        
+        //Cria o objeto jogador do usuário
         String nomeP1 = JOptionPane.showInputDialog("Por favor insira seu nome");
         jogador = new Jogador (tab1, nomeP1);
         jogador.posicionarNavios();
@@ -25,24 +27,24 @@ final class Jogo {
         while(colocarnavios.estaEmUso());
         colocarnavios.dispose();
         }*/
+        
         Object[] opcoes = {"Singleplayer", "Multiplayer"};
-       
         Object reply = JOptionPane.showInputDialog(null, "Escolha um modo de jogo", "Menu", JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
 
-        if (reply.equals("Singleplayer")){
+        if (reply.equals("Singleplayer")){ //Caso o selecionado será o modo singleplayer, o usuário jogará contra um computador.
             ai = new Bot (tab2);
-            while(jogador.isVivo() && ai.isVivo()){
+            while(jogador.isVivo() && ai.isVivo()){ //O jogo continua até pelo menos um dos jogadores morrer
                 Partida oTab = new Partida(true, tab2);
-                while(oTab.estaEmUso()); 
-                esperar(5000);
+                while(oTab.estaEmUso()); //Enquanto o usuário estiver fazendo a sua jogada, o resto do ojogo parará
+                esperar(5000); //Pausa para que o usuário analise o tabuleiro
                 oTab.dispose();
                 Partida jTab = new Partida(false, tab1);
-                esperar(5000);
-                jTab.tirodadooponente(ai.atirar(tab1));
-                esperar(3000);
+                esperar(5000); //Pausa dramática
+                jTab.tirodadooponente(ai.atirar(tab1)); //Jogada do bot é feita
+                esperar(3000); //Pausa para que o usuário analise o tabuleiro
                 jTab.dispose();
             }
-            vitoria(jogador, ai);        
+            vitoria(jogador, ai); //Verifica quem ganhou, e mostra. 
         }
     }
     

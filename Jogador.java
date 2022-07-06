@@ -1,6 +1,6 @@
 package com.mycompany.batalhanaval;
 
-
+//Esse é o jogador do usuário.
 public class Jogador extends IJogador{
 
     

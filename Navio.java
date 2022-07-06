@@ -1,6 +1,8 @@
 package com.mycompany.batalhanaval;
 import java.util.ArrayList;
 
+
+//Essa classe é responsável por armazenar e gerenciar os navios de cada jogador. 
 public class Navio{
 	private boolean navioAfundado;
 	private int posicaoX;
@@ -25,18 +27,12 @@ public class Navio{
         return !quadrados.isEmpty();
     
     }
-
-    @Override
-    public String toString() {
-        return "Navio{" + "tipo = " + tipo + ", começa em x = " + posicaoX + " e y em = " + posicaoY;
-    }
-    
     
     
     public void criarNavio(int x, int y, Direcao direcao, Tabuleiro tab){
         this.posicaoX = x;
         this.posicaoY = y;
-        this.quadrados = tab.colocarNavio(posicaoX, posicaoY, direcao, tipo.comprimento());
+        this.quadrados = tab.colocarNavio(posicaoX, posicaoY, direcao, tipo.comprimento()); //Coloca o navio no tabuleiro, e armazena todos os seus quadrados
     }
     
     public boolean verificarAfundado (){
@@ -44,10 +40,10 @@ public class Navio{
             return true;
         }
         for (Quadrado i : quadrados){
-            if (i.getStatus() == StatusQ.NAVIO){
+            if (i.getStatus() == StatusQ.NAVIO){ //Se houver pelo menos um quadrado que compõe o navio que esteja ainda como navio, o navio ainda não foi completamente afundado.
                return false;
             }
-        }
+        }//Caso contrário, o navio realmente foi afundado.
             navioAfundado = true;
             return true;
         }
