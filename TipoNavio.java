@@ -2,7 +2,7 @@
 Autores: Rui Emanuel Lima Viera - NUSP: 11810182
          André Guarnier de Mitri - NUSP: 11395579
 */
-package com.mycompany.batalhanaval;
+package batalhanaval;
 
 //Responsável por determinar qual o tipo do navio, seguindo o especificado no enunciado do trabalho.
 public enum TipoNavio {

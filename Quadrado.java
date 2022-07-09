@@ -2,7 +2,7 @@
 Autores: Rui Emanuel Lima Viera - NUSP: 11810182
          André Guarnier de Mitri - NUSP: 11395579
 */
-package com.mycompany.batalhanaval;
+package batalhanaval;
 
 //O objetivo desse objeto é compor o tabuleiro. Seu único atributo é o status, feito do enum StatusQ. Ele informa sobre o status daquela casa específica do tabuleiro. 
 public class Quadrado {
