@@ -2,9 +2,7 @@
 Autores: Rui Emanuel Lima Viera - NUSP: 11810182
          André Guarnier de Mitri - NUSP: 11395579
 */
-package batalhanaval;
-import batalhanaval.Direcao;
-import batalhanaval.Tabuleiro;
+package com.mycompany.batalhanaval;
 import java.util.Random;
 import java.util.*;
 

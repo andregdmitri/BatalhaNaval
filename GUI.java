@@ -2,7 +2,7 @@
 Autores: Rui Emanuel Lima Viera - NUSP: 11810182
          André Guarnier de Mitri - NUSP: 11395579
 */
-package batalhanaval;
+package com.mycompany.batalhanaval;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

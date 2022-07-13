@@ -2,7 +2,7 @@
 Autores: Rui Emanuel Lima Viera - NUSP: 11810182
          André Guarnier de Mitri - NUSP: 11395579
 */
-package batalhanaval;
+package com.mycompany.batalhanaval;
 
 
 //Esse enum é responsável por armazenar as possíveis direções de um movimento. Ele é utilizado na hora de posicionar um navio e na hora do bot realizar um tiro aleatório.
