@@ -4,32 +4,34 @@ Autores: Rui Emanuel Lima Viera - NUSP: 11810182
 */
 package com.mycompany.batalhanaval;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 
 //Essa classe é um template no qual serão baseados tanto o jogador dos usuários quando o Bot.
-public class Jogador {
+public class Jogador implements Serializable{
     protected Tabuleiro tab;
     protected final Random rand = new Random();
     protected ArrayList<Navio> navios; 
     protected String nome;
+    protected boolean vezJogador;
     
     public Jogador(Tabuleiro tab, String nome){
         navios = new ArrayList();
         this.tab = tab;
         this.nome = nome;
         //1 porta aviões, 2 navio tanque, 3 contra torpedos e 4 submarinos
-        this.navios.add(new Navio(TipoNavio.PORTAAVIOES));
-        this.navios.add(new Navio(TipoNavio.NAVIOTANQUE));
-        this.navios.add(new Navio(TipoNavio.NAVIOTANQUE));
-        this.navios.add(new Navio(TipoNavio.CONTRATORPEDOS));
-        this.navios.add(new Navio(TipoNavio.CONTRATORPEDOS));
-        this.navios.add(new Navio(TipoNavio.CONTRATORPEDOS));
-        this.navios.add(new Navio(TipoNavio.SUBMARINO));
-        this.navios.add(new Navio(TipoNavio.SUBMARINO));
-        this.navios.add(new Navio(TipoNavio.SUBMARINO));
-        this.navios.add(new Navio(TipoNavio.SUBMARINO));
+        this.navios.add(new Navio(Navio.TipoNavio.PORTAAVIOES));
+        this.navios.add(new Navio(Navio.TipoNavio.NAVIOTANQUE));
+        this.navios.add(new Navio(Navio.TipoNavio.NAVIOTANQUE));
+        this.navios.add(new Navio(Navio.TipoNavio.CONTRATORPEDOS));
+        this.navios.add(new Navio(Navio.TipoNavio.CONTRATORPEDOS));
+        this.navios.add(new Navio(Navio.TipoNavio.CONTRATORPEDOS));
+        this.navios.add(new Navio(Navio.TipoNavio.SUBMARINO));
+        this.navios.add(new Navio(Navio.TipoNavio.SUBMARINO));
+        this.navios.add(new Navio(Navio.TipoNavio.SUBMARINO));
+        this.navios.add(new Navio(Navio.TipoNavio.SUBMARINO));
 
     }
     
@@ -59,6 +61,14 @@ public class Jogador {
         for(Navio i : navios){
             posicionarNavio(i);
         }
+    }
+
+    public boolean isVezJogador() {
+        return vezJogador;
+    }
+
+    public void setVezJogador(boolean vezJogador) {
+        this.vezJogador = vezJogador;
     }
     
     //Esse método é responsável por posicionar um navio de maneira aleatória no tabuleiro.

@@ -3,73 +3,126 @@ Autores: Rui Emanuel Lima Viera - NUSP: 11810182
          André Guarnier de Mitri - NUSP: 11395579
 */
 package com.mycompany.batalhanaval;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
+// O objetivo desse objeto é fornecer um template para as duas interfaces principais do jogo - A tela de colocação dos navios do jogador, e o tabuleiro da partida. Ele representa o tabuleiro do jogo.
+public abstract class GUI extends JFrame {
+    private final String[] letras = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+    protected GridBagLayout grid;
+    protected GridBagConstraints constraints;
+    protected Tabuleiro tab;
+    protected boolean emuso;
+    protected JButton casas[][];
+    protected JPanel oceano = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-public class GUI implements ActionListener {
     
-    JLabel label;
-    JFrame frame;
-    JPanel panel;
-    int i = 0;
-    STATE state;
-    Jogo jogo;
+    public GUI(Tabuleiro tab){
+        this.setSize(700, 800);
+        this.setLayout(new BorderLayout());
+        this.setResizable(false);
+        oceano.setPreferredSize(new Dimension(650, 750));
+        grid = new GridBagLayout();
+        oceano.setLayout(grid);
+        constraints = new GridBagConstraints();
 
-    
-    private enum STATE {
-        MENU,
-        GAME
-    }
+        //Inicializa os atributos do objeto
+        this.emuso = true;
+        this.tab = tab;
+        casas = new JButton[tab.getX()][tab.getY()];
 
-    public GUI() {
-        frame = new JFrame();
-        JButton button_single = new JButton("Singleplayer");
-        JButton button_multi = new JButton("Multiplayer");
-        state = STATE.MENU;
-        button_single.addActionListener(this);
-        button_multi.addActionListener(this);
-        
-        label = new JLabel("Escolha o modo de jogo");
-        panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        //panel.setLayout(new GridLayout());
-        panel.add(button_single);
-        panel.add(button_multi);
-        
-        button_single.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    jogo = new Jogo();
-                } catch (Exception ex){
-                } 
+        //Preenche o tabuleiro com botões
+        for (int i = 0; i < tab.getX(); i++){
+            for (int j = 0; j < tab.getY(); j++){
+                constraints.gridx = i + 1;
+                constraints.gridy = j + 1;
+                casas[i][j] = new JButton();
+                casas[i][j].setPreferredSize(new Dimension(60, 60));
+                casas[i][j].setBorder(BorderFactory.createEtchedBorder(0));
+                casas[i][j].setActionCommand(String.valueOf(i) + String.valueOf(j));
+                cor(i, j);
+                oceano.add(casas[i][j], constraints);
             }
-        }); 
-         button_single.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               try {
-                    jogo = new Jogo();
-                } catch (Exception ex){
-                } 
-            }
-        }); 
+        }
         
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Batalha Naval");
-        frame.pack();
-        frame.setVisible(true);
+        //Coloca as letras e os números ao redor do tabuleiro, para ter um guia
+        for (int i = 1; i < tab.getY() + 1; i++) {
+           constraints.gridx = 0;
+           constraints.gridy = i;
+           JLabel gridNum = new JLabel(String.valueOf(i - 1));
+           oceano.add(gridNum, constraints);
+           constraints.gridx = i;
+           constraints.gridy = 0;
+           JLabel gridLet = new JLabel(letras[i - 1]);
+           oceano.add(gridLet, constraints);
+        }
+        oceano.setFocusable(true);
+        oceano.requestFocusInWindow();
+
+        this.add(oceano);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
+    }
+
+    //Chama novamente a função cor para ficar a par com as mudanças no estado do quadrado
+    protected void atualizar(){
+        for(int i = 0; i < tab.getX(); i++){
+            for(int j = 0; j < tab.getY(); j++){
+                cor(i, j);
+            }
+        }
     }
     
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getSource());
+    //Ativa ou desativa os botões, dependendo do escolhido
+    protected void ativarbotoes(boolean opcao){
+        for (JButton[] linha : casas) {
+            for (JButton casa : linha){
+                casa.setEnabled(opcao);
+            }
+        }
     }
+
+    public Tabuleiro getTab() {
+        return tab;
+    }
+    
+    //Setter do tbuleiro
+    public void setTab(Tabuleiro tab) {
+        this.tab = tab;
+    }
+    
+    
+    //Determina a cor do botão determinado, a depender do estado do seu respectivo quadrado
+    protected void cor(int i, int j){
+        Quadrado.StatusQ status = tab.getCasa(i, j).getStatus();
+        switch (status) {
+            case VAZIO:
+                casas[i][j].setBackground(Color.CYAN);
+                break;
+            case ERRADO:
+                casas[i][j].setBackground(Color.RED);
+                break;
+            case AFUNDADO:
+                casas[i][j].setBackground(Color.BLACK);
+                break;
+            case NAVIO: 
+                casas[i][j].setBackground(Color.GRAY);
+                break;
+        }
+    
+    }
+    
+    public boolean estaEmUso() {
+        return emuso;
+    }
+    
 }

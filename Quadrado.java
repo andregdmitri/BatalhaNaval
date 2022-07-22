@@ -5,13 +5,22 @@ Autores: Rui Emanuel Lima Viera - NUSP: 11810182
 package com.mycompany.batalhanaval;
 
 //O objetivo desse objeto é compor o tabuleiro. Seu único atributo é o status, feito do enum StatusQ. Ele informa sobre o status daquela casa específica do tabuleiro. 
-public class Quadrado {
+
+import java.io.Serializable;
+
+public class Quadrado implements Serializable {
     private StatusQ status;
 
-
-    
     public Quadrado() {
         status = StatusQ.VAZIO;
+    }
+    
+    //Tipos de quadrado
+    public enum StatusQ implements Serializable {
+       VAZIO, //Status padrão. Nada aconteceu com ele.
+       NAVIO, //Um navio foi colocado.
+       AFUNDADO,  //Anteriormente um navio, esse quadrado foi alvo de um tiro.
+       ERRADO //Esse quadrado também foi alvo de um tiro, porém ele estava vazio. 
     }
     
     public boolean Alvo(){ //Esse método será chamado quando um jogador escolher este determinado quadrado como alvo de um tiro. Retornará verdadeiro caso o tiro acerte, retornará falso caso erre.
@@ -30,6 +39,8 @@ public class Quadrado {
     public void navio(){ //Coloca um navio no quadrado.
         status = StatusQ.NAVIO;
     }
+    
+    public boolean isNavio(){ return this.status == StatusQ.NAVIO; }
     
     
     public StatusQ getStatus(){ return status; }
